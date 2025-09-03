@@ -3,10 +3,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <include layout="@layout/toolbar_layout" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -32,10 +34,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/EtPass"
@@ -46,7 +48,7 @@
             android:inputType="textPassword"/>
 
         <CheckBox
-            android:id="@+id/CbMostrar"
+            android:id="@+id/cbMostrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mostrar"/>
@@ -56,13 +58,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="recordar Usuario"
-        />
+        android:id="@+id/cbRecordarUsuario"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnIniciar"

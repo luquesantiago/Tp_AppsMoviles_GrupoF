@@ -1,14 +1,29 @@
 package com.example.tp_appsmoviles_grupof
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.EditText
+import android.widget.Toast
+
 class registro : AppCompatActivity() {
+    lateinit var btnRegistrar: Button
+    lateinit var EtUser: EditText
+    lateinit var EtPass1: EditText
+    lateinit var EtPass2: EditText
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
@@ -18,6 +33,8 @@ class registro : AppCompatActivity() {
         supportActionBar?.title = "Registro"
 
         val etUser = findViewById<EditText>(R.id.EtUser)
+
+
 
         val bundle : Bundle? = intent.extras
         if(bundle != null){
@@ -32,7 +49,23 @@ class registro : AppCompatActivity() {
             insets
         }
 
+        btnRegistrar = findViewById(R.id.btnRegistrar)
+        EtUser = findViewById(R.id.EtUser)
+        EtPass1 = findViewById(R.id.EtPass1)
+        EtPass2 = findViewById(R.id.EtPass2)
 
+
+            btnRegistrar.setOnClickListener{
+                if (etUser.text.toString().isEmpty() || EtPass1.text.toString().isEmpty() || EtPass2.text.toString().isEmpty()) {
+                    Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
+                }else {
+                intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("NOMBRE", EtUser.text.toString())
+                Toast.makeText(this, "Registro Correcto", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
+        }
 
 
 

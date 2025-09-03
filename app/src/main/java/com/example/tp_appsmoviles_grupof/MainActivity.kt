@@ -10,6 +10,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.widget.Toolbar
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,30 +33,46 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val etUser = findViewById<EditText>(R.id.EtUser)
-        val etPass = findViewById<EditText>(R.id.EtPass)
-        val cbMostrar = findViewById<CheckBox>(R.id.CbMostrar)
+        val etUser = findViewById<EditText>(R.id.etUser)
+        val etPass = findViewById<EditText>(R.id.etUser)
+        val cbMostrar = findViewById<CheckBox>(R.id.cbMostrar)
         val btnIniciar = findViewById<Button>(R.id.btnIniciar)
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
+        val cbRecordarUsuario = findViewById<CheckBox>(R.id.cbRecordarUsuario)
 
         btnIniciar.setOnClickListener {
+            var mensaje = "Boton iniciar sesion"
 
-        }
-        btnRegistrar.setOnClickListener {
+            if (etUser.text.toString().isEmpty() || etPass.text.toString().isEmpty()) {
+                Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
+            } else {
+                if (cbRecordarUsuario.isChecked)
+                    Log.i("TODO", "Funcionalidad de Recordar Usuario")
 
-            val intent = Intent(this, registro::class.java)
-            intent.putExtra("NOMBRE", etUser.text.toString())
-            startActivity(intent)
+                /*val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("NOMBRE", etUser.text.toString())
+                startActivity(intent)
+                finish()*/
+                Toast.makeText(this, "Inicio de Sesion Correcto", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
+            btnRegistrar.setOnClickListener {
+
+                val intent = Intent(this, registro::class.java)
+                intent.putExtra("NOMBRE", etUser.text.toString())
+                startActivity(intent)
+            }
             cbMostrar.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 } else {
-                    etPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    etPass.inputType =
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 }
                 etPass.setSelection(etPass.text.length)
             }
-
 
     }
 }
