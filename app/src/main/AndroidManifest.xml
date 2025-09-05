@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tp_APPSMoviles_GrupoF">
         <activity
+            android:name=".registro"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -19,7 +22,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> // mundo pa
+        </activity>
     </application>
 
 </manifest>
