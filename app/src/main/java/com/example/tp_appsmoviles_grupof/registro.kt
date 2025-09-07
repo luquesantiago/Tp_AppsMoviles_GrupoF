@@ -10,12 +10,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.WindowCompat.enableEdgeToEdge
 
 class registro : AppCompatActivity() {
     lateinit var btnRegistrar: Button
     lateinit var EtUser: EditText
     lateinit var EtPass1: EditText
     lateinit var EtPass2: EditText
+
+    lateinit var btnIniciar:Button
 
 
 
@@ -53,6 +56,20 @@ class registro : AppCompatActivity() {
         EtUser = findViewById(R.id.EtUser)
         EtPass1 = findViewById(R.id.EtPass1)
         EtPass2 = findViewById(R.id.EtPass2)
+        btnIniciar = findViewById<Button>(R.id.btnIniciar)
+
+
+        btnIniciar.setOnClickListener {
+
+            intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("NombreRegistrado",EtUser.text.toString())
+            Toast.makeText(this, "Volviendo al Login", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+            finish()
+
+        }
+
+
 
 
             btnRegistrar.setOnClickListener{
