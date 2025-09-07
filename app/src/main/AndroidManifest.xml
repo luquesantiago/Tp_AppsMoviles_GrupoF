@@ -15,9 +15,6 @@
             android:name=".registro"
             android:exported="false" />
         <activity
-            android:name=".ListadoCompraVentaActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
