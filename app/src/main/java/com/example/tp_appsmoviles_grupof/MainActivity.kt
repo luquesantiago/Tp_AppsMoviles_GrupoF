@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-         var nombre = obtenerNombreDesdeIntent()
+         val nombre = obtenerNombreDesdeIntent()
 
 
 
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
 
         btnIniciar.setOnClickListener {
-            var mensaje = "Boton iniciar sesion"
+            val mensaje = "Boton iniciar sesion"
 
             if (etUser.text.toString().isEmpty() || etPass.text.toString().isEmpty()) {
                 Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
