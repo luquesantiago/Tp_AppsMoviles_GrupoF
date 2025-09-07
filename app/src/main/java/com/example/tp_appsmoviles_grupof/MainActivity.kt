@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.widget.Toolbar
 import android.content.Intent
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -34,11 +36,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         val etUser = findViewById<EditText>(R.id.etUser)
-        val etPass = findViewById<EditText>(R.id.EtPass)
+        val etPass = findViewById<EditText>(R.id.etPass)
         val cbMostrar = findViewById<CheckBox>(R.id.cbMostrar)
         val btnIniciar = findViewById<Button>(R.id.btnIniciar)
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
         val cbRecordarUsuario = findViewById<CheckBox>(R.id.cbRecordarUsuario)
+
+
+
 
          var nombre = obtenerNombreDesdeIntent()
 
@@ -66,9 +71,16 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("NOMBRE", etUser.text.toString())
                 startActivity(intent)
                 finish()*/
-                Toast.makeText(this, "Inicio de Sesion Correcto", Toast.LENGTH_SHORT).show() //hacer funcionalidad (entrega 2?)
+
+                intent = Intent(this, ListadoCompraVentaActivity::class.java)
+                intent.putExtra("nombreIniciado",etUser.text.toString())
+                startActivity(intent)
+
+
             }
         }
+
+
 
 
             btnRegistrar.setOnClickListener {
@@ -87,6 +99,11 @@ class MainActivity : AppCompatActivity() {
                 etPass.setSelection(etPass.text.length)
             }
 
+
+
+
+
+
     }
 
 
@@ -101,6 +118,10 @@ class MainActivity : AppCompatActivity() {
 
         return nombreRegistro ?: nombreLogin
     }
+
+
+
+
 
 
 

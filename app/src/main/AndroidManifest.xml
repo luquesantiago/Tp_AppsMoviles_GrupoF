@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tp_APPSMoviles_GrupoF">
         <activity
-            android:name=".registro"
+            android:name=".ListadoCompraVentaActivity"
             android:exported="false" />
+        <activity
+            android:name=".registro"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
