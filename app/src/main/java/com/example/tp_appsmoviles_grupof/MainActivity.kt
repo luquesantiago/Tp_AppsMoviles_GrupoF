@@ -1,23 +1,23 @@
 package com.example.tp_appsmoviles_grupof
-import android.widget.Button
+
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.widget.Toolbar
-import android.content.Intent
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.Button
+
 
 class MainActivity : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,20 +42,10 @@ class MainActivity : AppCompatActivity() {
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
         val cbRecordarUsuario = findViewById<CheckBox>(R.id.cbRecordarUsuario)
 
-
-
-
          val nombre = obtenerNombreDesdeIntent()
-
-
-
         if (nombre != null){
-
             etUser.setText(nombre) // despues de volver del registrar, guarda el nombre previamente escrito
-
         }
-
-
 
 
         btnIniciar.setOnClickListener {

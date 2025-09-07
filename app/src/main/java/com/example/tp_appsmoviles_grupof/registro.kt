@@ -1,4 +1,3 @@
-
 package com.example.tp_appsmoviles_grupof
 
 import android.content.Intent
@@ -44,7 +43,7 @@ class registro : AppCompatActivity() {
         if(bundle != null){
             val usuario = bundle.getString("NOMBRE")
             if (usuario != null) {
-                etUser.setText(usuario)
+               etUser.setText(usuario)
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -73,14 +72,10 @@ class registro : AppCompatActivity() {
 
 
 
-        btnRegistrar.setOnClickListener{
-            if (etUser.text.toString().isEmpty() || EtPass1.text.toString().isEmpty() || EtPass2.text.toString().isEmpty()) {
-                Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
-            }else {
-
-
-
-
+            btnRegistrar.setOnClickListener{
+                if (etUser.text.toString().isEmpty() || EtPass1.text.toString().isEmpty() || EtPass2.text.toString().isEmpty()) {
+                    Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
+                }else {
                 intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("NOMBRE", EtUser.text.toString())
                 Toast.makeText(this, "Registro Correcto", Toast.LENGTH_SHORT).show()
