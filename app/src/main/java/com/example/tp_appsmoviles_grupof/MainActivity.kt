@@ -82,26 +82,21 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        btnRegistrar.setOnClickListener {
 
-            btnRegistrar.setOnClickListener {
-
-                val intent = Intent(this, registro::class.java)
-                intent.putExtra("NOMBRE", etUser.text.toString())
-                startActivity(intent)
+            val intent = Intent(this, registro::class.java)
+            intent.putExtra("NOMBRE", etUser.text.toString())
+            startActivity(intent)
+        }
+        cbMostrar.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                etPass.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
-            cbMostrar.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                } else {
-                    etPass.inputType =
-                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                }
-                etPass.setSelection(etPass.text.length)
-            }
-
-
-
-
+            etPass.setSelection(etPass.text.length)
+        }
 
 
     }
