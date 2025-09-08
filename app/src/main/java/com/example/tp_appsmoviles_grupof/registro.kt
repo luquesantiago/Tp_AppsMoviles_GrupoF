@@ -12,12 +12,11 @@ class registro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Registro"
 
-        val etUser = findViewById<EditText>(R.id.EtUser)
+        val etUser = findViewById<EditText>(R.id.etUser)
 
         val bundle : Bundle? = intent.extras
         if(bundle != null){

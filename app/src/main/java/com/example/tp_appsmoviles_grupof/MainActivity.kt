@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val etUser = findViewById<EditText>(R.id.EtUser)
+        val etUser = findViewById<EditText>(R.id.etUser)
         val etPass = findViewById<EditText>(R.id.EtPass)
         val cbMostrar = findViewById<CheckBox>(R.id.CbMostrar)
         val btnIniciar = findViewById<Button>(R.id.btnIniciar)

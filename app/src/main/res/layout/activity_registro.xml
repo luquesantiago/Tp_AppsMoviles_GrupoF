@@ -17,7 +17,7 @@
         android:textAlignment="center"/>
 
     <EditText
-        android:id="@+id/EtUser"
+        android:id="@+id/etUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -30,7 +30,7 @@
         android:text="contraseña"
         android:textAlignment="center"/>
     <EditText
-        android:id="@+id/EtPass1"
+        android:id="@+id/etPass1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -47,7 +47,7 @@
         android:layout_marginRight="10dp">
 
         <EditText
-            android:id="@+id/EtPass2"
+            android:id="@+id/etPass2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,7 +55,7 @@
             android:inputType="textPassword"/>
 
         <CheckBox
-            android:id="@+id/CbMostrar"
+            android:id="@+id/cbMostrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mostrar"/>
