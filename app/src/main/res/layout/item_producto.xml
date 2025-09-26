@@ -13,7 +13,7 @@
         android:id="@+id/tv_nombre"
         android:layout_margin="4dp"
 
-        android:background="@color/design_default_color_primary"
+        android:background="@color/azulPrimario"
         android:textColor="@color/white"
         />
 
@@ -32,8 +32,8 @@
             android:layout_margin="4dp"
 
             android:text="Stock Disponible: "
-            android:background="@color/design_default_color_primary"
-            android:textColor="@color/white"
+            android:background="@color/fondoApp"
+            android:textColor="@color/textoPrimario"
             />
 
         <TextView
@@ -42,7 +42,7 @@
             android:id="@+id/tv_stock"
             android:layout_margin="4dp"
 
-            android:background="@color/design_default_color_primary"
+            android:background="@color/fondoApp"
             android:textColor="@color/white"
             />
 
