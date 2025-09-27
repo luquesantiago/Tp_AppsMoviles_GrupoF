@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+
 
 
     <item
+        android:id="@+id/idItemAgregar"
+        android:title="Agregar producto"
+        
 
-        android:id="@+id/idItemLista"
-        android:title="Mostrar Productos"
-        app:showAsAction="never"
-
-        />
+        app:showAsAction="never" />
 
 
+
+    <item
+        android:id="@+id/idItemSalir"
+        android:title="Cerrar sesión"
+        app:showAsAction="never" />
 
 </menu>

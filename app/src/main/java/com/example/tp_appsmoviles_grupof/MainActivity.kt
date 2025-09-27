@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()*/
 
-                intent = Intent(this, ListadoCompraVentaActivity::class.java)
+                intent = Intent(this, Opciones_Generales::class.java)
                 intent.putExtra("nombreIniciado",etUser.text.toString())
                 startActivity(intent)
 

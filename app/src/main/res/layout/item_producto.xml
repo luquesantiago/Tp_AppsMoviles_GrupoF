@@ -43,7 +43,7 @@
             android:layout_margin="4dp"
 
             android:background="@color/fondoApp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             />
 
 

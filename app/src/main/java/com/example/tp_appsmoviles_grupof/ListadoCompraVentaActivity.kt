@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -34,22 +35,26 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Lista Productos"
 
-        lateinit var TwNombre : TextView
 
 
 
-        val nombreUsuario = intent.getStringExtra("nombreIniciado")
 
-        TwNombre= findViewById(R.id.idUsuarioMostrado)
-        TwNombre.text = nombreUsuario
 
         rvProductos = findViewById(R.id.rvProductos)
 
         productosAdapter = Producto_Adapter(getProductos(),this)
         rvProductos.adapter = productosAdapter
 
+
+
+
+
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.primer_menu, menu)
+        return true
+    }
 
     private fun getProductos() : MutableList<Producto>{
 
@@ -82,32 +87,31 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
 
 
 
-/*
 
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.primer_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.idItemLista){
+        return when (item.itemId) {
+            R.id.idItemAgregar -> {
+                // Abrir pantalla para agregar producto
+                Toast.makeText(this, "Agregar producto", Toast.LENGTH_SHORT).show()
+                true
+            }
 
-            val intent = Intent(this, ListadoCompraVentaActivity ::class.java)
-            startActivity(intent)
-
+            R.id.idItemSalir -> {
+                // Volver al login
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
 
 
 
 
-
- */
 
 
 }
