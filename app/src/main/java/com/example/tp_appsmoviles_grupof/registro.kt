@@ -2,6 +2,7 @@ package com.example.tp_appsmoviles_grupof
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -87,4 +88,12 @@ class registro : AppCompatActivity() {
 
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.logo_barra, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+
 }
