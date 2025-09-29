@@ -1,10 +1,7 @@
-package com.example.tp_appsmoviles_grupof
+package com.example.tp_appsmoviles_grupof.viewmodel
 
 import Producto
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +9,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tp_appsmoviles_grupof.viewmodel.Producto_Adapter
+import com.example.tp_appsmoviles_grupof.R
+
 class ListadoCompraVentaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -45,7 +45,7 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
 
         rvProductos = findViewById(R.id.rvProductos)
 
-        productosAdapter = Producto_Adapter(getProductos(),this)
+        productosAdapter = Producto_Adapter(getProductos(), this)
         rvProductos.adapter = productosAdapter
 
     }

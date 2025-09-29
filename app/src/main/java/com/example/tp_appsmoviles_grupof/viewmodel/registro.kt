@@ -1,16 +1,17 @@
-package com.example.tp_appsmoviles_grupof
+package com.example.tp_appsmoviles_grupof.viewmodel
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.view.WindowCompat.enableEdgeToEdge
+import com.example.tp_appsmoviles_grupof.MainActivity
+import com.example.tp_appsmoviles_grupof.R
 
 class registro : AppCompatActivity() {
     lateinit var btnRegistrar: Button
@@ -18,7 +19,7 @@ class registro : AppCompatActivity() {
     lateinit var EtPass1: EditText
     lateinit var EtPass2: EditText
 
-    lateinit var btnIniciar:Button
+    lateinit var btnIniciar: Button
 
 
 

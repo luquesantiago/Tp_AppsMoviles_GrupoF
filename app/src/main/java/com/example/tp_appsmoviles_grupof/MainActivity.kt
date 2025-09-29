@@ -15,6 +15,8 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import com.example.tp_appsmoviles_grupof.viewmodel.ListadoCompraVentaActivity
+import com.example.tp_appsmoviles_grupof.viewmodel.registro
 
 
 class MainActivity : AppCompatActivity() {
