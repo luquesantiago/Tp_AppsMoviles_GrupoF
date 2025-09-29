@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_appsmoviles_grupof.R
+import com.example.tp_appsmoviles_grupof.viewmodel.Producto
 
 class Producto_Adapter (var productos : MutableList<Producto>, var context : Context) : RecyclerView.Adapter<Producto_Adapter.ProductoViewHolder>(){
     class ProductoViewHolder (view: View) : RecyclerView.ViewHolder(view) {

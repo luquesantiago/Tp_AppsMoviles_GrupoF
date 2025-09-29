@@ -1,6 +1,6 @@
 package com.example.tp_appsmoviles_grupof.viewmodel
 
-import Producto
+import com.example.tp_appsmoviles_grupof.viewmodel.Producto
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
