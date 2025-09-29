@@ -93,7 +93,8 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.idItemAgregar -> {
                 // Abrir pantalla para agregar producto
-                Toast.makeText(this, "Agregar producto", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "Agregar producto", Toast.LENGTH_SHORT).show()
+                iniciarAgregarProducto()
                 true
             }
 
@@ -101,17 +102,17 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
                 // Volver al login
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-
-
-
-
+    private fun iniciarAgregarProducto() {
+        val intent = Intent(this, AgregarProducto::class.java)
+        startActivity(intent)
+        finish()
+    }
 
 
 }
