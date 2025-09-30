@@ -134,6 +134,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.logo_barra, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
 
 
