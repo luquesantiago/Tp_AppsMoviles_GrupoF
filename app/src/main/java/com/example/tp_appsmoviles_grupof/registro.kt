@@ -97,7 +97,7 @@ class registro : AppCompatActivity() {
 
         EtTelefono.doOnTextChanged { text, _, _, _ ->
             val tel = text?.toString().orEmpty().replace(" ", "")
-            val ok = Regex("^\\+?\\d{7,15}$").matches(tel)
+            val ok = Regex("^\\+?\\d{12,15}$").matches(tel)
             EtTelefono.error = when {
                 tel.isEmpty() -> "Ingresá tu teléfono"
                 !ok -> "Teléfono inválido"
@@ -142,7 +142,7 @@ class registro : AppCompatActivity() {
                 Toast.makeText(this, "Email inválido", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (!Regex("^\\+?\\d{7,15}$").matches(tel.replace(" ", ""))) {
+            if (!Regex("^\\+?\\d{12,15}$").matches(tel.replace(" ", ""))) {
                 Toast.makeText(this, "Teléfono inválido", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
