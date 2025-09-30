@@ -22,4 +22,8 @@ interface userDao {
 
     @Query("SELECT * FROM userEntity")
     suspend fun getAllUsers(): List<userEntity>
+
+    @Query("SELECT idUser FROM userEntity WHERE nombre = :nombre AND password = :password")
+    suspend fun validarUsuario(nombre: String, password: String): Int?
+
 }
