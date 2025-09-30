@@ -18,8 +18,7 @@
         <activity
             android:name=".viewmodel.Opciones_Generales"
             android:exported="false" />
-        <activity
-            android:name=".viewmodel.registro"
+        <activity android:name=".Registro"
             android:exported="false" />
         <activity
             android:name=".viewmodel.ListadoCompraVentaActivity"

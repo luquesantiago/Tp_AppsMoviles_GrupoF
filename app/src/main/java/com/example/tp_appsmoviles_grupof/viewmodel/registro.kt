@@ -17,8 +17,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
 import com.example.tp_appsmoviles_grupof.MainActivity
 import com.example.tp_appsmoviles_grupof.R
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.example.tp_appsmoviles_grupof.RoomApp
+import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
 
-class registro : AppCompatActivity() {
+
+
+
+
+class Registro : AppCompatActivity() {
     lateinit var btnRegistrar: Button
     lateinit var EtUser: EditText
     lateinit var EtPass1: EditText
@@ -131,6 +141,7 @@ class registro : AppCompatActivity() {
             val p2 = EtPass2.text.toString()
             val mail = EtMail.text.toString().trim()
             val tel = EtTelefono.text.toString().trim()
+            val direccion = "Sin dirección" // o agregalo como campo si lo tenés
 
             if (user.isEmpty() || p1.isEmpty() || p2.isEmpty() || mail.isEmpty() || tel.isEmpty()) {
                 Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
@@ -153,11 +164,36 @@ class registro : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("NOMBRE", user)
-            Toast.makeText(this, "Registro Correcto", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
-            finish()
+            lifecycleScope.launch {
+                val dao = RoomApp.database.userDao()
+                val existente = dao.getAllUsers().find { it.nombre == user }
+
+                if (existente != null) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@Registro, "El usuario ya existe", Toast.LENGTH_SHORT).show()
+                    }
+                    return@launch
+                }
+
+                val nuevoUsuario = userEntity(
+                    idUser = 0,
+                    nombre = user,
+                    password = p1,
+                    email = mail,
+                    telefono = tel,
+                    direccion = direccion
+                )
+
+                val id = dao.insertUser(nuevoUsuario)
+
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@Registro, "Usuario registrado con ID $id", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@Registro, MainActivity::class.java)
+                    intent.putExtra("NOMBRE", user)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 
