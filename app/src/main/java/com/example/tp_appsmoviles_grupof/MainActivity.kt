@@ -15,7 +15,11 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Button
 import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
-
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.example.tp_appsmoviles_grupof.RoomApp
 
 class MainActivity : AppCompatActivity() {
     lateinit var cbRecordarUsuario : CheckBox //defino afuera del onCreate porque tiraba error la funcion login()
@@ -71,20 +75,41 @@ class MainActivity : AppCompatActivity() {
 
 
         btnIniciar.setOnClickListener {
-            val mensaje = "Boton iniciar sesion"
+            val nombre = etUser.text.toString().trim()
+            val password = etPass.text.toString().trim()
 
-            if (etUser.text.toString().isEmpty() || etPass.text.toString().isEmpty()) {
-                Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
-            } else {
-                    login(etUser.text.toString(),etPass.text.toString())
+            if (nombre.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Completar datos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
+            lifecycleScope.launch {
+                val dao = RoomApp.database.userDao()
+                val usuario = dao.buscarPorNombre(nombre)
+
+                withContext(Dispatchers.Main) {
+                    when {
+                        usuario == null -> {
+                            Toast.makeText(this@MainActivity, "Usuario no registrado", Toast.LENGTH_SHORT).show()
+                        }
+                        usuario.password != password -> {
+                            Toast.makeText(this@MainActivity, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Toast.makeText(this@MainActivity, "Bienvenido ${usuario.nombre}", Toast.LENGTH_SHORT).show()
+                            iniciarActividadPrincipal(usuario.nombre)
+                        }
+                    }
+                }
             }
         }
 
 
         btnRegistrar.setOnClickListener {
 
-            val intent = Intent(this, registro::class.java)
+                //Toast.makeText(this, "Click detectado", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, Registro::class.java)
             intent.putExtra("NOMBRE", etUser.text.toString())
             startActivity(intent)
 

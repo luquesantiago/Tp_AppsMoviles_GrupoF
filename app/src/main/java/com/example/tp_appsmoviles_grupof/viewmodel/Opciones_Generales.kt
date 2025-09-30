@@ -55,10 +55,12 @@ class Opciones_Generales : AppCompatActivity() {
         }
 
         btnCerrar.setOnClickListener {
-                // Volver al login
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+            val preferencias = getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
+            preferencias.edit().putString(getString(R.string.nombre), "").apply()
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
 
