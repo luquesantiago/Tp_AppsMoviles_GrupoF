@@ -62,6 +62,34 @@
             android:layout_height="wrap_content"
             android:text="Mostrar"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gmail"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/EtMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="93dp"
+        android:hint="Mail"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Num. Telefono"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/EtTelefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="93dp"
+        android:hint="Num. Telefono"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

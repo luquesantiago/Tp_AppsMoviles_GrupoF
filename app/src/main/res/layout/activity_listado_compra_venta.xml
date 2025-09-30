@@ -12,29 +12,6 @@
         layout="@layout/toolbar_layout" />
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Bienvenido " />
-
-        <TextView
-            android:id="@+id/idUsuarioMostrado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-
-
-
-            />
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
 
