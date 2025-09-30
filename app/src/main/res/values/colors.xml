@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grisOscuro"> #37474F</color>
+    <color  name ="grisClaro">#B0BEC5</color>
+
+    <color name="azulPrimario">#0A488E</color>
+    <color name="verdeStock">#2E7D32</color>
+    <color name="naranjaAlerta">#EF6C00</color>
+    <color name="rojoError">#C62828</color>
+
+    <color name="fondoApp">#F5F5F5</color>
+    <color name="textoPrimario">#212121</color>
+    <color name="textoSecundario">#757575</color>
+
 </resources>
+
+

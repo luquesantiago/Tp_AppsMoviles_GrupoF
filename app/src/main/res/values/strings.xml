@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Tp_APPSMoviles_GrupoF</string>
+
+    <string name="nombre">NOMBRE</string>
+    <string name="password">PASSWORD</string>
+    <string name="sp_credenciales">SP_CREDENCIALES</string>
+    <string name="volver">icono volver</string>
+
+
 </resources>

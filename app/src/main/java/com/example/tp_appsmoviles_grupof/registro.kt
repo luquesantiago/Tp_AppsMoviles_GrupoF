@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.Patterns
 import android.widget.*
+import android.view.Menu
+import android.widget.Button
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -153,6 +156,15 @@ class registro : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.logo_barra, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
 
