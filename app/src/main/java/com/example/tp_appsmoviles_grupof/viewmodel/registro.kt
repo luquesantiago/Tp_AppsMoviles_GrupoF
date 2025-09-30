@@ -1,6 +1,5 @@
 package com.example.tp_appsmoviles_grupof
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
@@ -8,19 +7,23 @@ import android.util.Patterns
 import android.widget.*
 import android.view.Menu
 import android.widget.Button
-
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
+import com.example.tp_appsmoviles_grupof.MainActivity
+import com.example.tp_appsmoviles_grupof.R
 
 class registro : AppCompatActivity() {
     lateinit var btnRegistrar: Button
     lateinit var EtUser: EditText
     lateinit var EtPass1: EditText
     lateinit var EtPass2: EditText
+
 
     lateinit var EtMail: EditText
 
@@ -158,14 +161,6 @@ class registro : AppCompatActivity() {
         }
     }
 
-
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.logo_barra, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
 
 }

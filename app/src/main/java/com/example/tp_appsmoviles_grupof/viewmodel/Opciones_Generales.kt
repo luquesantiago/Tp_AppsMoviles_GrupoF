@@ -1,18 +1,16 @@
-package com.example.tp_appsmoviles_grupof
+package com.example.tp_appsmoviles_grupof.viewmodel
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.RecyclerView
+import com.example.tp_appsmoviles_grupof.MainActivity
+import com.example.tp_appsmoviles_grupof.R
 
 class Opciones_Generales : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,8 +71,3 @@ class Opciones_Generales : AppCompatActivity() {
 
 
 }
-
-
-
-
-

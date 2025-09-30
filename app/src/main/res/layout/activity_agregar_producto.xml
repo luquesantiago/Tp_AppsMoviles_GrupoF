@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AgregarProducto"
+    tools:context=".viewmodel.AgregarProducto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
 

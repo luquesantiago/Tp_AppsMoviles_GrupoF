@@ -13,8 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
+import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
 
 
 class MainActivity : AppCompatActivity() {
