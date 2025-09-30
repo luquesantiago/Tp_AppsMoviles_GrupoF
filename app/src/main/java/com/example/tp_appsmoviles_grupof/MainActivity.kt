@@ -18,6 +18,9 @@ import android.widget.Button
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var cbRecordarUsuario : CheckBox //defino afuera del onCreate porque tiraba error la funcion login()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,10 +43,29 @@ class MainActivity : AppCompatActivity() {
         val cbMostrar = findViewById<CheckBox>(R.id.cbMostrar)
         val btnIniciar = findViewById<Button>(R.id.btnIniciar)
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
-        val cbRecordarUsuario = findViewById<CheckBox>(R.id.cbRecordarUsuario)
+         cbRecordarUsuario = findViewById<CheckBox>(R.id.cbRecordarUsuario)
 
-         val nombre = obtenerNombreDesdeIntent()
-        if (nombre != null){
+        //shared preferences para login
+
+        var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales),MODE_PRIVATE)
+        var usuarioGuardado = preferencias.getString(resources.getString(R.string.nombre),"")
+
+
+        //var passwordGuardada = preferencias.getString(resources.getString(R.string.password),"")
+
+        //if(usuarioGuardado!="" && passwordGuardada !="")
+        //    iniciarActividadPrincipal(usuarioGuardado.toString())
+
+
+
+
+        if (usuarioGuardado != "") { // no inicia sesion directamente como en el ejemplo, solo marca
+            etUser.setText(usuarioGuardado)
+            cbRecordarUsuario.isChecked = true
+        }
+
+        val nombre = obtenerNombreDesdeIntent()
+        if (nombre != null) {
             etUser.setText(nombre) // despues de volver del registrar, guarda el nombre previamente escrito
         }
 
@@ -54,22 +76,10 @@ class MainActivity : AppCompatActivity() {
             if (etUser.text.toString().isEmpty() || etPass.text.toString().isEmpty()) {
                 Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
             } else {
-                if (cbRecordarUsuario.isChecked)
-                    Log.i("TODO", "Funcionalidad de Recordar Usuario")
-
-                /*val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("NOMBRE", etUser.text.toString())
-                startActivity(intent)
-                finish()*/
-
-                intent = Intent(this, ListadoCompraVentaActivity::class.java)
-                intent.putExtra("nombreIniciado",etUser.text.toString())
-                startActivity(intent)
-
+                    login(etUser.text.toString(),etPass.text.toString())
 
             }
         }
-
 
 
         btnRegistrar.setOnClickListener {
@@ -77,6 +87,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, registro::class.java)
             intent.putExtra("NOMBRE", etUser.text.toString())
             startActivity(intent)
+
+
         }
         cbMostrar.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -90,6 +102,17 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    private fun login(user: String, pass: String) { //funcion login de clase grabada; adaptada para que solo recuerde usuario
+
+            if (cbRecordarUsuario.isChecked) {
+                val preferencias = getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
+                preferencias.edit().putString(getString(R.string.nombre), user).apply()
+                // preferencias.edit().putString(getString(R.string.password), pass).apply()
+            }
+
+            iniciarActividadPrincipal(user)
+
+    }
 
 
     private fun obtenerNombreDesdeIntent(): String? {
@@ -98,10 +121,15 @@ class MainActivity : AppCompatActivity() {
 
         val nombreLogin = intent.getStringExtra("NOMBRE")
 
-
-
-
         return nombreRegistro ?: nombreLogin
+    }
+
+
+    private fun iniciarActividadPrincipal(nombreUsuario: String) {
+        val intent = Intent(this, Opciones_Generales::class.java)
+        intent.putExtra("nombreIniciado", nombreUsuario)
+        startActivity(intent)
+        finish()
     }
 
 
@@ -114,6 +142,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
 }
+
+

@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tp_APPSMoviles_GrupoF">
         <activity
+            android:name=".AgregarProducto"
+            android:exported="false" />
+        <activity
+            android:name=".Opciones_Generales"
+            android:exported="false" />
+        <activity
             android:name=".registro"
             android:exported="false" />
         <activity

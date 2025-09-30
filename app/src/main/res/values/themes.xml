@@ -2,6 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Tp_APPSMoviles_GrupoF" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/azulPrimario</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/verdeStock</item>
+        <item name="colorError">@color/rojoError</item>
+        <item name="colorSurface">@color/fondoApp</item>
+        <item name="colorOnSurface">@color/textoPrimario</item>
+        <item name="colorOutline">@color/grisClaro</item>
+
+
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
