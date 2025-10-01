@@ -107,14 +107,14 @@ class MainActivity : AppCompatActivity() {
 
         btnRegistrar.setOnClickListener {
 
-                //Toast.makeText(this, "Click detectado", Toast.LENGTH_SHORT).show()
-
             val intent = Intent(this, Registro::class.java)
             intent.putExtra("NOMBRE", etUser.text.toString())
             startActivity(intent)
-
+            finish()
 
         }
+
+
         cbMostrar.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD

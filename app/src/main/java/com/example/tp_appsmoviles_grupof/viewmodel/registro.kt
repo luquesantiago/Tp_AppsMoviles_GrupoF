@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.Patterns
 import android.widget.*
-import android.view.Menu
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -15,13 +14,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
-import com.example.tp_appsmoviles_grupof.MainActivity
-import com.example.tp_appsmoviles_grupof.R
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.tp_appsmoviles_grupof.RoomApp
 import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
 
 
@@ -41,9 +37,10 @@ class Registro : AppCompatActivity() {
 
     lateinit var btnIniciar: Button
 
+    lateinit var  cbMostrar:CheckBox
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -69,14 +66,14 @@ class Registro : AppCompatActivity() {
             insets
         }
 
-        btnRegistrar = findViewById(R.id.btnRegistrar)
-        EtUser = findViewById(R.id.EtUser)
-        EtPass1 = findViewById(R.id.EtPass1)
-        EtPass2 = findViewById(R.id.EtPass2)
-        btnIniciar = findViewById<Button>(R.id.btnIniciar)
-        EtMail = findViewById(R.id.EtMail)
-        EtTelefono = findViewById(R.id.EtTelefono)
-
+        btnRegistrar =  findViewById(R.id.btnRegistrar)
+        EtUser =        findViewById(R.id.EtUser)
+        EtPass1 =       findViewById(R.id.EtPass1)
+        EtPass2 =       findViewById(R.id.EtPass2)
+        btnIniciar =    findViewById(R.id.btnIniciar)
+        EtMail =        findViewById(R.id.EtMail)
+        EtTelefono =    findViewById(R.id.EtTelefono)
+        cbMostrar = findViewById<CheckBox>(R.id.CbMostrar)
         //validacion tiempo real
 
         EtPass1.doOnTextChanged { text, _, _, _ ->
@@ -90,6 +87,8 @@ class Registro : AppCompatActivity() {
             val p2 = EtPass2.text?.toString().orEmpty()
             if (p2.isNotEmpty()) EtPass2.error = if (p1 == p2) null else "No coinciden"
         }
+
+
 
         EtPass2.doOnTextChanged { text, _, _, _ ->
             val p2 = text?.toString().orEmpty()
@@ -124,7 +123,7 @@ class Registro : AppCompatActivity() {
 
         btnIniciar.setOnClickListener {
 
-            intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("NombreRegistrado", EtUser.text.toString())
             Toast.makeText(this, "Volviendo al Login", Toast.LENGTH_SHORT).show()
             startActivity(intent)
@@ -132,6 +131,17 @@ class Registro : AppCompatActivity() {
 
         }
 
+        cbMostrar.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                EtPass1.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                EtPass2.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                EtPass1.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                EtPass2.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+
+            EtPass2.setSelection(EtPass2.text.length)
+        }
 
 
 
@@ -141,7 +151,7 @@ class Registro : AppCompatActivity() {
             val p2 = EtPass2.text.toString()
             val mail = EtMail.text.toString().trim()
             val tel = EtTelefono.text.toString().trim()
-            val direccion = "Sin dirección" // o agregalo como campo si lo tenés
+            val direccion = "Sin dirección"
 
             if (user.isEmpty() || p1.isEmpty() || p2.isEmpty() || mail.isEmpty() || tel.isEmpty()) {
                 Toast.makeText(this, "Completar Datos", Toast.LENGTH_SHORT).show()
@@ -195,6 +205,7 @@ class Registro : AppCompatActivity() {
                 }
             }
         }
+
     }
 
 
