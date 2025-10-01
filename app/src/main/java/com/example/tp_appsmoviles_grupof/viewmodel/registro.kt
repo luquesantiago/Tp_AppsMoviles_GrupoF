@@ -197,7 +197,7 @@ class Registro : AppCompatActivity() {
                 val id = dao.insertUser(nuevoUsuario)
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@Registro, "Usuario registrado con ID $id", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Registro, "Usuario creado correctamente", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@Registro, MainActivity::class.java)
                     intent.putExtra("NOMBRE", user)
                     startActivity(intent)
