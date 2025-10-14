@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        if (usuarioGuardado != "") { // no inicia sesion directamente como en el ejemplo, solo marca
+        if (usuarioGuardado != "") {
             etUser.setText(usuarioGuardado)
             cbRecordarUsuario.isChecked = true
         }
