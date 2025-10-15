@@ -1,3 +1,5 @@
+package com.example.tp_appsmoviles_grupof.viewmodel.Peliculas
+
 
 
 import androidx.lifecycle.LiveData
@@ -5,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-
+import Movie
 class MovieViewModel : ViewModel() {
     private val api = MovieApiService.create()
 

@@ -1,13 +1,14 @@
-
+package com.example.tp_appsmoviles_grupof.viewmodel.Peliculas
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.
+import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieAdapter
+import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieViewModel
 import com.example.tp_appsmoviles_grupof.databinding.ActivityCatalogBinding
-
+import Movie
 class MovieCatalog : AppCompatActivity() {
 
     private lateinit var binding: ActivityCatalogBinding
@@ -19,7 +20,7 @@ class MovieCatalog : AppCompatActivity() {
         binding = ActivityCatalogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = MovieAdapter(onBuyClick = { movie ->
+        adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
             Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
             // Acá podrías guardar en Room si querés simular compra
         })
@@ -33,6 +34,6 @@ class MovieCatalog : AppCompatActivity() {
         }
 
         // Carga desde la API (reemplazá con tu API key)
-        viewModel.loadMovies("TU_API_KEY_AQUI")
+        viewModel.loadMovies("a900d45013d2d7ea128b1e1d2bb0dc94")
     }
 }
