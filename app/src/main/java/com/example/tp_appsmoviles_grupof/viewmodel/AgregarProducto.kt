@@ -23,7 +23,6 @@ class AgregarProducto : AppCompatActivity() {
 
         lateinit var etProducto : EditText
         lateinit var etStock : EditText
-
         lateinit var btnAgregar : Button
 
 

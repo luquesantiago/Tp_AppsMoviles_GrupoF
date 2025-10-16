@@ -62,6 +62,18 @@
   <Button
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:id="@+id/btnListaPeliculas"
+      android:text="Lista de Peliculas"
+      android:textSize="20dp"
+      android:layout_marginHorizontal="40dp"
+
+
+      />
+
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:id="@+id/btnCerrarSesion"
       android:text="Cerrar Sesion"
       android:textSize="20dp"

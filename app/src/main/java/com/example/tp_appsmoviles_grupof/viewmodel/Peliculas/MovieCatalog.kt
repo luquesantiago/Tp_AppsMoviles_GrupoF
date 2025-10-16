@@ -33,7 +33,6 @@ class MovieCatalog : AppCompatActivity() {
             adapter.setMovies(movies)
         }
 
-        // Carga desde la API (reemplazá con tu API key)
         viewModel.loadMovies("a900d45013d2d7ea128b1e1d2bb0dc94")
     }
 }

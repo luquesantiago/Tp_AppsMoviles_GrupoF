@@ -1,7 +1,5 @@
 package com.example.tp_appsmoviles_grupof.viewmodel.Peliculas
 
-
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
