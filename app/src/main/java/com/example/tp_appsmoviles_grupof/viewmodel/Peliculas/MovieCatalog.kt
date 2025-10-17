@@ -29,7 +29,7 @@ class MovieCatalog : AppCompatActivity() {
 
         adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
             Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
-            // Acá podrías guardar en Room si querés simular compra
+
         })
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
