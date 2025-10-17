@@ -7,7 +7,7 @@ import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
 
 import androidx.room.RoomDatabase
 
-@Database(entities = [userEntity::class], version = 1)
+@Database(entities = [userEntity::class], version = 2)
 abstract class appDataBase: RoomDatabase() {
 abstract fun userDao(): userDao
 
