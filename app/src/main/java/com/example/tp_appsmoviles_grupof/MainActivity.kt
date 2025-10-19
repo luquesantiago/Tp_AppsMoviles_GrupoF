@@ -236,8 +236,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission") //para que no salte el error de permisos
+
     private fun mostrarNotificacionRecordarUsuario() {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // pregunta si es android 8 o mas, y crea canal
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val canal = NotificationChannel(
+                "canal_recordar_usuario",
+                "Recordar Usuario",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Canal para notificaciones de Recordar Usuario"
+            }
+            notificationManager.createNotificationChannel(canal)
+        }
+
+        // creand o la notificacion
         val builder = NotificationCompat.Builder(this, "canal_recordar_usuario")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Recordar Usuario")
@@ -245,25 +262,29 @@ class MainActivity : AppCompatActivity() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
 
+        // Android 13 o superior → verificar permiso
 
-        // Verificar y pedir permiso si hace falta
-        //no me muestra la noti sino
-        if (tienePermisoNotificaciones()) {
-            NotificationManagerCompat.from(this).notify(1001, builder.build())
+        // antes solo estaba implementada esta parte
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                notificationManager.notify(1001, builder.build())
+            } else {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 100)
+            }
         } else {
-            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 100)
-        }
-
-
-    }
-
-    private fun tienePermisoNotificaciones(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-        } else {
-            true
+            // Android 12 o inferior → permiso no necesario
+            notificationManager.notify(1001, builder.build())
         }
     }
+
+
+//borré la funcion de verificar version, la usaba una sola vez
+
+// private fun tienePermisoNotificaciones(): Boolean {
+
 
 
     }

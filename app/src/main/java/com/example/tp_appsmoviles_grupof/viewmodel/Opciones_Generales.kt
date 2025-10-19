@@ -26,11 +26,11 @@ class Opciones_Generales : AppCompatActivity() {
             insets
         }
 
-        lateinit var btnLista : Button
+        //lateinit var btnLista : Button
 
-        lateinit var btnCerrar : Button
+        lateinit var btnCerrar: Button
 
-        lateinit var btnPeliculas : Button
+        lateinit var btnPeliculas: Button
 
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -45,18 +45,22 @@ class Opciones_Generales : AppCompatActivity() {
         TwNombre = findViewById(R.id.idUsuarioMostrado)
         TwNombre.text = nombreUsuario
 
-        btnLista = findViewById(R.id.btnListaStock)
+        //btnLista = findViewById(R.id.btnListaStock)
 
         btnCerrar = findViewById(R.id.btnCerrarSesion)
 
         btnPeliculas = findViewById(R.id.btnListaPeliculas)
 
 
-        btnLista.setOnClickListener {
-            val intent = Intent(this, ListadoCompraVentaActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        /*btnLista.setOnClickListener {
+        val intent = Intent(this, ListadoCompraVentaActivity::class.java)
+        startActivity(intent)
+        finish()
+        */
+
+
+
+
 
         btnCerrar.setOnClickListener {
             val preferencias = getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
@@ -75,7 +79,7 @@ class Opciones_Generales : AppCompatActivity() {
 
 
 
-    }
+        }
 
 
 

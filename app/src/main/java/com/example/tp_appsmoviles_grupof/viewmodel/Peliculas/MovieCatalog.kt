@@ -34,7 +34,7 @@ class MovieCatalog : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Toolbar"
+        supportActionBar?.title = "Peliculas Disponibles"
 
         binding.recyclerMovies.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerMovies.adapter = adapter
@@ -56,8 +56,7 @@ class MovieCatalog : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.item_volver -> {
-                // Abrir pantalla para agregar producto
-                //Toast.makeText(this, "Agregar producto", Toast.LENGTH_SHORT).show()
+
                 val intent = Intent(this, Opciones_Generales::class.java)
                 startActivity(intent)
                 finish()
