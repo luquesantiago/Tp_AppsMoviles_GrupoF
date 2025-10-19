@@ -9,6 +9,13 @@ import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieAdapter
 import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieViewModel
 import com.example.tp_appsmoviles_grupof.databinding.ActivityCatalogBinding
 import Movie
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
+import com.example.tp_appsmoviles_grupof.R
+import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
+
 class MovieCatalog : AppCompatActivity() {
 
     private lateinit var binding: ActivityCatalogBinding
@@ -19,6 +26,9 @@ class MovieCatalog : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCatalogBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
             Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
@@ -34,5 +44,23 @@ class MovieCatalog : AppCompatActivity() {
         }
 
         viewModel.loadMovies("a900d45013d2d7ea128b1e1d2bb0dc94")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+
+            R.id.idItemSalir -> {
+                // Volver al menu
+                val intent = Intent(this, Opciones_Generales::class.java)
+                startActivity(intent)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.primer_menu, menu)
+        return true
     }
 }
