@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".RoomApp"
         android:allowBackup="true"
@@ -12,13 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tp_APPSMoviles_GrupoF">
+
+        <activity
+            android:name=".viewmodel.Peliculas.MovieCatalog"
+            android:exported="false" />
+
         <activity
             android:name=".viewmodel.AgregarProducto"
             android:exported="false" />
         <activity
             android:name=".viewmodel.Opciones_Generales"
             android:exported="false" />
-        <activity android:name=".Registro"
+        <activity
+            android:name=".Registro"
             android:exported="false" />
         <activity
             android:name=".viewmodel.ListadoCompraVentaActivity"
@@ -28,7 +36,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

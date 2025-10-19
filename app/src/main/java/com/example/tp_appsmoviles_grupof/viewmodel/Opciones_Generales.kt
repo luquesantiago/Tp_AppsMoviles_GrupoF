@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tp_appsmoviles_grupof.MainActivity
 import com.example.tp_appsmoviles_grupof.R
+import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieCatalog
 
 class Opciones_Generales : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class Opciones_Generales : AppCompatActivity() {
 
         lateinit var btnCerrar : Button
 
+        lateinit var btnPeliculas : Button
 
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -47,6 +49,8 @@ class Opciones_Generales : AppCompatActivity() {
 
         btnCerrar = findViewById(R.id.btnCerrarSesion)
 
+        btnPeliculas = findViewById(R.id.btnListaPeliculas)
+
 
         btnLista.setOnClickListener {
             val intent = Intent(this, ListadoCompraVentaActivity::class.java)
@@ -62,6 +66,12 @@ class Opciones_Generales : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        btnPeliculas.setOnClickListener {
+            val intent = Intent(this, MovieCatalog::class.java)
+            startActivity(intent)
+            finish()
+            }
 
 
 
