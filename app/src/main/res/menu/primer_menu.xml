@@ -9,18 +9,17 @@
 
 
 
-    <item
+<!--    <item
         android:id="@+id/idItemAgregar"
         android:title="Agregar producto"
         android:textColor="@android:color/black"
-
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
 
 
 
     <item
         android:id="@+id/idItemSalir"
-        android:title="Cerrar sesión"
+        android:title="Volver"
         app:showAsAction="always"
         android:textColor="@android:color/black"
 

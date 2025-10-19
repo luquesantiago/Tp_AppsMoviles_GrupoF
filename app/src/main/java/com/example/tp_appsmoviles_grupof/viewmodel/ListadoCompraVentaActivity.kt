@@ -84,16 +84,16 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.idItemAgregar -> {
+/*            R.id.idItemAgregar -> {
                 // Abrir pantalla para agregar producto
                 //Toast.makeText(this, "Agregar producto", Toast.LENGTH_SHORT).show()
                 iniciarAgregarProducto()
                 true
-            }
+            }*/
 
             R.id.idItemSalir -> {
-                // Volver al login
-                val intent = Intent(this, MainActivity::class.java)
+                // Volver al menu
+                val intent = Intent(this, Opciones_Generales::class.java)
                 startActivity(intent)
                 true
             }

@@ -27,14 +27,13 @@ class MovieCatalog : AppCompatActivity() {
         binding = ActivityCatalogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
-            Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
-
-        })
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Peliculas Disponibles"
+
+        adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
+            Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
+            // Acá podrías guardar en Room si querés simular compra
+        })
 
         binding.recyclerMovies.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerMovies.adapter = adapter
@@ -47,32 +46,21 @@ class MovieCatalog : AppCompatActivity() {
         viewModel.loadMovies("a900d45013d2d7ea128b1e1d2bb0dc94")
     }
 
-
-    //toolbar del "agregar prodyucto" que al final no usamos, solo tiene una flecha a opciones generales
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_agregar, menu)
-        return true
-    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.item_volver -> {
 
+            R.id.idItemSalir -> {
+                // Volver al menu
                 val intent = Intent(this, Opciones_Generales::class.java)
                 startActivity(intent)
-                finish()
                 true
             }
-
 
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
-
-
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.primer_menu, menu)
+        return true
+    }
 }
-
-
-
