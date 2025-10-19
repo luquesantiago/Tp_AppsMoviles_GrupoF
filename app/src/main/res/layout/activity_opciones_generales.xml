@@ -48,22 +48,12 @@
         />
   </LinearLayout>
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/btnListaStock"
-    android:text="Lista de Productos"
-    android:textSize="20dp"
-    android:layout_marginHorizontal="40dp"
-
-
-    />
 
   <Button
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/btnListaPeliculas"
-      android:text="Lista de Peliculas"
+      android:text="Peliculas Disponibles"
       android:textSize="20dp"
       android:layout_marginHorizontal="40dp"
 
@@ -77,6 +67,13 @@
       android:text="Peliculas Compradas"
       android:textSize="20dp"
       android:layout_marginHorizontal="40dp"/>
+
+
+
+
+
+
+
 
 
 
