@@ -1,4 +1,3 @@
-// app/src/main/java/com/example/tp_appsmoviles_grupof/database/local/dao/comprasDao.kt
 package com.example.tp_appsmoviles_grupof.database.local.dao
 
 import androidx.room.*
@@ -7,22 +6,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface comprasDao {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(compra: comprasEntity): Long
 
+    @Query("SELECT EXISTS(SELECT 1 FROM compras WHERE userId = :userId AND movieId = :movieId)")
+    suspend fun isPurchased(userId: Long, movieId: Int): Boolean
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(compra: comprasEntity): Long
-
-    @Query("""
-        SELECT * FROM compras
-        WHERE userId = :userId
-        ORDER BY purchasedAt DESC
-    """)
+    @Query("SELECT * FROM compras WHERE userId = :userId ORDER BY purchasedAt DESC")
     fun getComprasByUser(userId: Long): Flow<List<comprasEntity>>
 
-    @Query("""
-        SELECT trailerKey FROM compras
-        WHERE userId = :userId AND movieId = :movieId
-        LIMIT 1
-    """)
+    @Query("SELECT trailerKey FROM compras WHERE userId = :userId AND movieId = :movieId LIMIT 1")
     suspend fun getTrailerKey(userId: Long, movieId: Int): String?
 }

@@ -9,7 +9,7 @@ import com.example.tp_appsmoviles_grupof.database.local.entities.comprasEntity
 
 
 
-@Database(entities = [userEntity::class, comprasEntity::class], version = 4,  exportSchema = false)
+@Database(entities = [userEntity::class, comprasEntity::class], version = 7,  exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun comprasDao(): comprasDao

@@ -1,4 +1,3 @@
-
 package com.example.tp_appsmoviles_grupof.data
 
 import com.example.tp_appsmoviles_grupof.database.local.RoomApp
@@ -10,13 +9,14 @@ class MovieRepository(private val apiKey: String) {
     private val comprasDao = RoomApp.database.comprasDao()
     private val api = TmdbApi.service
 
-    // Llamala cuando tocan Comprar
     suspend fun buyMovieSnapshot(
         userId: Long,
         movieId: Int,
         title: String,
         overview: String?
-    ) {
+    ): Boolean {
+        if (comprasDao.isPurchased(userId, movieId)) return false
+
         val trailerKey = fetchTrailerKey(movieId)
         val compra = comprasEntity(
             userId = userId,
@@ -25,12 +25,9 @@ class MovieRepository(private val apiKey: String) {
             overview = overview,
             trailerKey = trailerKey
         )
-        comprasDao.upsert(compra)
+        comprasDao.insert(compra)
+        return true
     }
-
-    // Podés usarla para abrir trailer desde Mis compras
-    suspend fun getTrailerKey(userId: Long, movieId: Int): String? =
-        comprasDao.getTrailerKey(userId, movieId)
 
     private suspend fun fetchTrailerKey(movieId: Int): String? {
         fun pickBest(list: List<VideoDto>): String? {

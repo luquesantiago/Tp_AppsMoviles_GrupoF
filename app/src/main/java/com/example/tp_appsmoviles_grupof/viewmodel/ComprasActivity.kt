@@ -17,6 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.view.View
+import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.TrailerFragment
+
 
 class ComprasActivity : AppCompatActivity() {
 
@@ -37,9 +40,19 @@ class ComprasActivity : AppCompatActivity() {
 
         val recycler = findViewById<RecyclerView>(R.id.recyclerCompras)
         recycler.layoutManager = LinearLayoutManager(this)
+//        adapter = ComprasAdapter(emptyList()) { compra ->
+//            openTrailer(compra.trailerKey)
+//        }
         adapter = ComprasAdapter(emptyList()) { compra ->
-            openTrailer(compra.trailerKey)
+            val key = compra.trailerKey
+            if (key.isNullOrEmpty()) {
+                Toast.makeText(this, "Esta compra no tiene tráiler", Toast.LENGTH_SHORT).show()
+            } else {
+                openTrailerFullscreen(key)
+            }
         }
+
+
         recycler.adapter = adapter
 
         val passedUserId = intent.getLongExtra("userId", 0L)
@@ -76,14 +89,30 @@ class ComprasActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-    private fun openTrailer(key: String?) {
-        if (key.isNullOrEmpty()) {
-            Toast.makeText(this, "Esta compra no tiene tráiler", Toast.LENGTH_SHORT).show()
-            return
-        }
-        startActivity(
-            Intent(this, TrailerActivity::class.java)
-                .putExtra("VIDEO_ID", key)
-        )
+//    private fun openTrailer(key: String?) {
+//        if (key.isNullOrEmpty()) {
+//            Toast.makeText(this, "Esta compra no tiene tráiler", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//        startActivity(
+//            Intent(this, TrailerActivity::class.java)
+//                .putExtra("VIDEO_ID", key)
+//        )
+//    }
+
+    private fun openTrailerFullscreen(videoKey: String) {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_in, android.R.anim.fade_out
+            )
+            .add(android.R.id.content, TrailerFragment.newInstance(videoKey), "TrailerFragment")
+            .addToBackStack("trailer")
+            .commit()
     }
+
+
+
+
+
 }

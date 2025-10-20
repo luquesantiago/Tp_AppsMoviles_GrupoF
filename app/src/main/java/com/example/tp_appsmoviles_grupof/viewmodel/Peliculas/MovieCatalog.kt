@@ -65,17 +65,27 @@ class MovieCatalog : AppCompatActivity() {
                     Toast.makeText(this, "Cargando usuario… intentá de nuevo", Toast.LENGTH_SHORT).show()
                     return@MovieAdapter
                 }
+
                 lifecycleScope.launch(Dispatchers.IO) {
-                    repo.buyMovieSnapshot(
+                    val ok = repo.buyMovieSnapshot(
                         userId = currentUserId,
                         movieId = movie.id,
-                        title  = movie.title,
+                        title = movie.title,
                         overview = movie.overview
                     )
+
+                    withContext(Dispatchers.Main) {
+                        if (ok) {
+                            Toast.makeText(this@MovieCatalog, "🎉 Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@MovieCatalog, "⚠️ Ya compraste esta película", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
-                Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
             }
         )
+
+
 
         binding.recyclerMovies.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerMovies.adapter = adapter
