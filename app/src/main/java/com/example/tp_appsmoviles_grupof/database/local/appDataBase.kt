@@ -1,18 +1,16 @@
 package com.example.tp_appsmoviles_grupof.database.local
 
 import androidx.room.Database
-import com.example.tp_appsmoviles_grupof.database.local.dao.userDao
-import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
-
-
 import androidx.room.RoomDatabase
-
-@Database(entities = [userEntity::class], version = 1)
-abstract class appDataBase: RoomDatabase() {
-abstract fun userDao(): userDao
-
-
+import com.example.tp_appsmoviles_grupof.database.local.dao.UserDao
+import com.example.tp_appsmoviles_grupof.database.local.dao.comprasDao
+import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
+import com.example.tp_appsmoviles_grupof.database.local.entities.comprasEntity
 
 
 
+@Database(entities = [userEntity::class, comprasEntity::class], version = 4,  exportSchema = false)
+abstract class AppDatabase: RoomDatabase() {
+    abstract fun userDao(): UserDao
+    abstract fun comprasDao(): comprasDao
 }

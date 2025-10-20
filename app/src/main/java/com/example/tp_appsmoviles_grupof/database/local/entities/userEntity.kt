@@ -4,12 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
-@Entity
+@Entity(tableName = "users")
 data class userEntity(
-    @PrimaryKey(autoGenerate = true) val idUser: Int,
-    @ColumnInfo(name = "nombre") val nombre: String,
-    @ColumnInfo(name = "password")val password: String,
-    @ColumnInfo(name = "email")val email: String,
-    @ColumnInfo(name = "telefono")val telefono: String,
-    @ColumnInfo(name = "direccion")val direccion: String,
-   )
+    @PrimaryKey(autoGenerate = true) val idUser: Int = 0,
+    @ColumnInfo(name = "nombre")   val nombre: String,
+    @ColumnInfo(name = "password") val password: String,
+    @ColumnInfo(name = "email")    val email: String? = null,
+    @ColumnInfo(name = "telefono") val telefono: String? = null,
+    @ColumnInfo(name = "direccion")val direccion: String? = null,
+)

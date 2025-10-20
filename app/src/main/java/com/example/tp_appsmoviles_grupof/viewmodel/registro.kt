@@ -19,6 +19,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
+import com.example.tp_appsmoviles_grupof.database.local.RoomApp
+
 
 
 
@@ -45,6 +47,8 @@ class Registro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro)
+
+        RoomApp.init(this)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -174,9 +178,9 @@ class Registro : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val dao = RoomApp.database.userDao()
-                val existente = dao.getAllUsers().find { it.nombre == user }
+                val existente = dao.buscarPorNombre(user)
 
                 if (existente != null) {
                     withContext(Dispatchers.Main) {

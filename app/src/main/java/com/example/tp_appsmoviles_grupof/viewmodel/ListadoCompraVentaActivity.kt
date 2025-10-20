@@ -34,7 +34,7 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Lista Productos"
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
 
@@ -91,12 +91,17 @@ class ListadoCompraVentaActivity : AppCompatActivity() {
                 true
             }*/
 
-            R.id.idItemSalir -> {
-                // Volver al menu
-                val intent = Intent(this, Opciones_Generales::class.java)
-                startActivity(intent)
-                true
-            }
+
+                    android.R.id.home -> {
+                        finish()
+                        true
+                    }
+//                    R.id.idItemSalir -> {
+//                        startActivity(Intent(this, Opciones_Generales::class.java))
+//                        true
+//                    }
+
+
 
             else -> super.onOptionsItemSelected(item)
         }

@@ -3,76 +3,61 @@ package com.example.tp_appsmoviles_grupof
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Button
-import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.tp_appsmoviles_grupof.RoomApp
+import com.example.tp_appsmoviles_grupof.database.local.RoomApp
+import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
+import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
 
 class MainActivity : AppCompatActivity() {
-    lateinit var cbRecordarUsuario : CheckBox //defino afuera del onCreate porque tiraba error la funcion login()
-
+    lateinit var cbRecordarUsuario: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        RoomApp.init(this)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Login"
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val etUser = findViewById<EditText>(R.id.etUser)
         val etPass = findViewById<EditText>(R.id.etPass)
         val cbMostrar = findViewById<CheckBox>(R.id.cbMostrar)
         val btnIniciar = findViewById<Button>(R.id.btnIniciar)
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
-         cbRecordarUsuario = findViewById<CheckBox>(R.id.cbRecordarUsuario)
+        cbRecordarUsuario = findViewById(R.id.cbRecordarUsuario)
 
-        //shared preferences para login
+        // Shared preferences para login
+        val preferencias = getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
+        val usuarioGuardado = preferencias.getString(getString(R.string.nombre), "") ?: ""
 
-        var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales),MODE_PRIVATE)
-        var usuarioGuardado = preferencias.getString(resources.getString(R.string.nombre),"")
-
-
-        //var passwordGuardada = preferencias.getString(resources.getString(R.string.password),"")
-
-        //if(usuarioGuardado!="" && passwordGuardada !="")
-        //    iniciarActividadPrincipal(usuarioGuardado.toString())
-
-
-
-
-        if (usuarioGuardado != "") {
+        if (usuarioGuardado.isNotEmpty()) {
             etUser.setText(usuarioGuardado)
             cbRecordarUsuario.isChecked = true
         }
 
-        val nombre = obtenerNombreDesdeIntent()
-        if (nombre != null) {
-            etUser.setText(nombre) // despues de volver del registrar, guarda el nombre previamente escrito
-        }
-
+        obtenerNombreDesdeIntent()?.let { etUser.setText(it) }
 
         btnIniciar.setOnClickListener {
             val nombre = etUser.text.toString().trim()
@@ -83,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val dao = RoomApp.database.userDao()
                 val usuario = dao.buscarPorNombre(nombre)
 
@@ -96,77 +81,55 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this@MainActivity, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
+                            // Guardá el usuario si marcaron “recordar”
+                            if (cbRecordarUsuario.isChecked) {
+                                preferencias.edit().putString(getString(R.string.nombre), usuario.nombre).apply()
+                            } else {
+                                preferencias.edit().remove(getString(R.string.nombre)).apply()
+                            }
+
                             Toast.makeText(this@MainActivity, "Bienvenido ${usuario.nombre}", Toast.LENGTH_SHORT).show()
-                            iniciarActividadPrincipal(usuario.nombre)
+                            irAMenu(usuario)
                         }
                     }
                 }
             }
         }
 
-
         btnRegistrar.setOnClickListener {
-
             val intent = Intent(this, Registro::class.java)
             intent.putExtra("NOMBRE", etUser.text.toString())
             startActivity(intent)
             finish()
-
         }
-
 
         cbMostrar.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            } else {
-                etPass.inputType =
-                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
+            etPass.inputType = if (isChecked)
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            else
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             etPass.setSelection(etPass.text.length)
         }
-
-
-    }
-    private fun login(user: String, pass: String) { //funcion login de clase grabada; adaptada para que solo recuerde usuario
-
-            if (cbRecordarUsuario.isChecked) {
-                val preferencias = getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
-                preferencias.edit().putString(getString(R.string.nombre), user).apply()
-                // preferencias.edit().putString(getString(R.string.password), pass).apply()
-            }
-
-            iniciarActividadPrincipal(user)
-
     }
 
 
-    private fun obtenerNombreDesdeIntent(): String? {
-
-        val nombreRegistro = intent.getStringExtra("NombreRegistrado")
-
-        val nombreLogin = intent.getStringExtra("NOMBRE")
-
-        return nombreRegistro ?: nombreLogin
-    }
-
-
-    private fun iniciarActividadPrincipal(nombreUsuario: String) {
-        val intent = Intent(this, Opciones_Generales::class.java)
-        intent.putExtra("nombreIniciado", nombreUsuario)
+    private fun irAMenu(usuario: userEntity) {
+        val intent = Intent(this@MainActivity, Opciones_Generales::class.java)
+        intent.putExtra("nombreIniciado", usuario.nombre)
+        intent.putExtra("userId", usuario.idUser.toLong())
         startActivity(intent)
         finish()
     }
 
+    private fun obtenerNombreDesdeIntent(): String? {
+        val nombreRegistro = intent.getStringExtra("NombreRegistrado")
+        val nombreLogin = intent.getStringExtra("NOMBRE")
+        return nombreRegistro ?: nombreLogin
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.logo_barra, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
-
-
-
 }
-
-

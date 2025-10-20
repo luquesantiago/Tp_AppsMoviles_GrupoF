@@ -1,20 +1,20 @@
 package com.example.tp_appsmoviles_grupof.viewmodel.Peliculas
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieAdapter
-import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieViewModel
-import com.example.tp_appsmoviles_grupof.databinding.ActivityCatalogBinding
-import Movie
-import android.content.Intent
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tp_appsmoviles_grupof.R
-import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
+import com.example.tp_appsmoviles_grupof.data.MovieRepository
+import com.example.tp_appsmoviles_grupof.database.local.RoomApp
+import com.example.tp_appsmoviles_grupof.databinding.ActivityCatalogBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieCatalog : AppCompatActivity() {
 
@@ -22,45 +22,80 @@ class MovieCatalog : AppCompatActivity() {
     private val viewModel: MovieViewModel by viewModels()
     private lateinit var adapter: MovieAdapter
 
+    private lateinit var repo: MovieRepository
+    private var currentUserId: Long = 0L
+    private var canBuy = false
+    private val API_KEY = "a900d45013d2d7ea128b1e1d2bb0dc94"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCatalogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        RoomApp.init(this)
+        repo = MovieRepository(API_KEY)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar?.title = "Catálogo de películas"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
-            Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
-            // Acá podrías guardar en Room si querés simular compra
-        })
+
+        val passedUserId = intent.getLongExtra("userId", 0L)
+        val nombreUsuario = intent.getStringExtra("nombreIniciado") ?: ""
+
+        if (passedUserId != 0L) {
+            currentUserId = passedUserId
+            canBuy = true
+        } else {
+            lifecycleScope.launch(Dispatchers.IO) {
+                currentUserId = RoomApp.database.userDao()
+                    .buscarPorNombre(nombreUsuario)?.idUser?.toLong() ?: 0L
+                withContext(Dispatchers.Main) {
+                    canBuy = currentUserId != 0L
+                }
+            }
+        }
+
+
+        adapter = MovieAdapter(
+            movies = emptyList(),
+            onBuyClick = { movie ->
+                if (!canBuy || currentUserId == 0L) {
+                    Toast.makeText(this, "Cargando usuario… intentá de nuevo", Toast.LENGTH_SHORT).show()
+                    return@MovieAdapter
+                }
+                lifecycleScope.launch(Dispatchers.IO) {
+                    repo.buyMovieSnapshot(
+                        userId = currentUserId,
+                        movieId = movie.id,
+                        title  = movie.title,
+                        overview = movie.overview
+                    )
+                }
+                Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
+            }
+        )
 
         binding.recyclerMovies.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerMovies.adapter = adapter
 
-        // Observa los cambios del ViewModel
+
         viewModel.movies.observe(this) { movies ->
             adapter.setMovies(movies)
         }
-
-        viewModel.loadMovies("a900d45013d2d7ea128b1e1d2bb0dc94")
+        viewModel.loadMovies(API_KEY)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-
-            R.id.idItemSalir -> {
-                // Volver al menu
-                val intent = Intent(this, Opciones_Generales::class.java)
-                startActivity(intent)
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.primer_menu, menu)
-        return true
-    }
+
+
 }

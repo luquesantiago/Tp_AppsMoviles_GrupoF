@@ -1,18 +1,22 @@
-package com.example.tp_appsmoviles_grupof
+package com.example.tp_appsmoviles_grupof.database.local
 
-import android.app.Application
-import com.example.tp_appsmoviles_grupof.database.local.appDataBase
+import android.content.Context
 import androidx.room.Room
 
+object RoomApp {
+    lateinit var database: AppDatabase
+        private set
 
-class RoomApp: Application(){
-    companion object{
-        lateinit var database: appDataBase
-    }
+    fun init(context: Context) {
 
-    override fun onCreate() {
-        super.onCreate()
-
-        database= Room.databaseBuilder(applicationContext, appDataBase::class.java, "appDataBase").build()
+        if (!::database.isInitialized) {
+            database = Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "movies-db"
+            )
+                .fallbackToDestructiveMigration()
+                .build()
+        }
     }
 }
