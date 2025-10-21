@@ -27,7 +27,6 @@ class Opciones_Generales : AppCompatActivity() {
             insets
         }
 
-        //lateinit var btnLista : Button
 
         lateinit var btnCerrar: Button
 
@@ -51,7 +50,6 @@ class Opciones_Generales : AppCompatActivity() {
         TwNombre = findViewById(R.id.idUsuarioMostrado)
         TwNombre.text = nombreUsuario
 
-        //btnLista = findViewById(R.id.btnListaStock)
 
         btnCerrar = findViewById(R.id.btnCerrarSesion)
 
@@ -59,12 +57,6 @@ class Opciones_Generales : AppCompatActivity() {
 
         btnPelisCompradas = findViewById(R.id.btnPelisCompradas)
 
-
-        /*btnLista.setOnClickListener {
-        val intent = Intent(this, ListadoCompraVentaActivity::class.java)
-        startActivity(intent)
-        //finish()
-        */
 
 
 

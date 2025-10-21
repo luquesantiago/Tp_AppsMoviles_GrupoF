@@ -250,11 +250,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-//borré la funcion de verificar version, la usaba una sola vez
-
-// private fun tienePermisoNotificaciones(): Boolean {
-
-
 
     }
 

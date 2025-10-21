@@ -12,8 +12,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-// terminar
-// import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.PlayerConstants
 
 class TrailerActivity : AppCompatActivity() {
 
@@ -51,30 +49,11 @@ class TrailerActivity : AppCompatActivity() {
                 youTubePlayer.loadVideo(videoId, 0f)
             }
 
-            // terminar
-            /*
-            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
-                if (state == PlayerConstants.PlayerState.ENDED && !isFinishing) finish()
-            }
 
-            override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
-                abrirEnYouTube(videoId)
-            }
-            */
         }, options)
     }
 
-    private fun abrirEnYouTube(videoId: String) {
 
-        val url = "https://www.youtube.com/watch?v=$videoId"
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-        } catch (_: Exception) {
-            Toast.makeText(this, "No se pudo abrir YouTube", Toast.LENGTH_SHORT).show()
-        } finally {
-            finish()
-        }
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

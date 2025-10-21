@@ -40,9 +40,7 @@ class ComprasActivity : AppCompatActivity() {
 
         val recycler = findViewById<RecyclerView>(R.id.recyclerCompras)
         recycler.layoutManager = LinearLayoutManager(this)
-//        adapter = ComprasAdapter(emptyList()) { compra ->
-//            openTrailer(compra.trailerKey)
-//        }
+
         adapter = ComprasAdapter(emptyList()) { compra ->
             val key = compra.trailerKey
             if (key.isNullOrEmpty()) {
@@ -82,23 +80,11 @@ class ComprasActivity : AppCompatActivity() {
                 finish()
                 true
             }
-//            R.id.idItemSalir -> {
-//                startActivity(Intent(this, Opciones_Generales::class.java))
-//                true
-//            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
-//    private fun openTrailer(key: String?) {
-//        if (key.isNullOrEmpty()) {
-//            Toast.makeText(this, "Esta compra no tiene tráiler", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//        startActivity(
-//            Intent(this, TrailerActivity::class.java)
-//                .putExtra("VIDEO_ID", key)
-//        )
-//    }
+
 
     private fun openTrailerFullscreen(videoKey: String) {
         supportFragmentManager.beginTransaction()
