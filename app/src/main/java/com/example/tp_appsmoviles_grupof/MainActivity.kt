@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.tp_appsmoviles_grupof.database.local.RoomApp
 import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
-import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var cbRecordarUsuario: CheckBox
@@ -140,11 +140,8 @@ class MainActivity : AppCompatActivity() {
                                 preferencias.edit().remove("nombre_usuario").apply() // si no esta marcado, o lo saco, tengo que borrar
                             }
 
-
-                            // 🔹 Esperar un poquito antes de cambiar de pantalla, sino a veces no muestra notificacion
-                            etUser.postDelayed({
-                                iniciarActividadPrincipal(usuario.nombre)
-                            }, 500) // cuando creas un dispositivo virtual nuevo, me los pide justo despues de iniciar sesion, y no antes de iniciar la aplicacion; si es así, le doy mas tiempo antes de que cambie de vista.
+                            Toast.makeText(this@MainActivity, "Bienvenido ${usuario.nombre}", Toast.LENGTH_SHORT).show()
+                            irAMenu(usuario)
                         }
 
 
