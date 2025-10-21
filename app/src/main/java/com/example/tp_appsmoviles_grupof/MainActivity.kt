@@ -85,15 +85,8 @@ class MainActivity : AppCompatActivity() {
 
         //shared preferences para login
 
-        var preferencias =
-            getSharedPreferences(resources.getString(R.string.sp_credenciales), MODE_PRIVATE)
-        var usuarioGuardado = preferencias.getString(resources.getString(R.string.nombre), "")
-
-        //shared preferences para contraseña --> var passwordGuardada = preferencias.getString(resources.getString(R.string.password),"")
-
-
-        //if(usuarioGuardado!="" && passwordGuardada !="")
-        //    iniciarActividadPrincipal(usuarioGuardado.toString())
+        val preferencias = getSharedPreferences("credenciales", MODE_PRIVATE)
+        val usuarioGuardado = preferencias.getString("nombre_usuario", "")
 
 
         if (usuarioGuardado != "") {
@@ -146,21 +139,19 @@ class MainActivity : AppCompatActivity() {
                             ).show()
 
                             if (cbRecordarUsuario.isChecked) {
-                                val preferencias = getSharedPreferences(
-                                    getString(R.string.sp_credenciales),
-                                    MODE_PRIVATE
-                                )
-                                preferencias.edit()
-                                    .putString(getString(R.string.nombre), usuario.nombre)
-                                    .apply()
-
+                                val preferencias = getSharedPreferences("credenciales", MODE_PRIVATE)
+                                preferencias.edit().putString("nombre_usuario", usuario.nombre).apply()
                                 mostrarNotificacionRecordarUsuario()
+                            } else {
+                                val preferencias = getSharedPreferences("credenciales", MODE_PRIVATE)
+                                preferencias.edit().remove("nombre_usuario").apply() // si no esta marcado, o lo saco, tengo que borrar
                             }
 
-                            // 🔹 Esperar un poquito antes de cambiar de pantalla
+
+                            // 🔹 Esperar un poquito antes de cambiar de pantalla, sino a veces no muestra notificacion
                             etUser.postDelayed({
                                 iniciarActividadPrincipal(usuario.nombre)
-                            }, 300)
+                            }, 500) // cuando creas un dispositivo virtual nuevo, me los pide justo despues de iniciar sesion, y no antes de iniciar la aplicacion; si es así, le doy mas tiempo antes de que cambie de vista.
                         }
 
 
@@ -175,7 +166,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Registro::class.java)
             intent.putExtra("NOMBRE", etUser.text.toString())
             startActivity(intent)
-            finish()
+
 
         }
 
