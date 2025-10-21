@@ -5,16 +5,21 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+
+import com.example.tp_appsmoviles_grupof.databinding.ActivityCatalogBinding
+
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
+
 import com.example.tp_appsmoviles_grupof.R
 import com.example.tp_appsmoviles_grupof.data.MovieRepository
 import com.example.tp_appsmoviles_grupof.database.local.RoomApp
-import com.example.tp_appsmoviles_grupof.databinding.ActivityCatalogBinding
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class MovieCatalog : AppCompatActivity() {
 
