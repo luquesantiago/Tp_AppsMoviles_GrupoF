@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tp_appsmoviles_grupof.MainActivity
 import com.example.tp_appsmoviles_grupof.R
+import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.ComprasActivity
 import com.example.tp_appsmoviles_grupof.viewmodel.Peliculas.MovieCatalog
 
 class Opciones_Generales : AppCompatActivity() {
@@ -32,6 +33,9 @@ class Opciones_Generales : AppCompatActivity() {
 
         lateinit var btnPeliculas: Button
 
+        lateinit var btnPelisCompradas: Button
+
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -41,6 +45,8 @@ class Opciones_Generales : AppCompatActivity() {
 
 
         val nombreUsuario = intent.getStringExtra("nombreIniciado")
+        val userId = intent.getLongExtra("userId", 0L)
+
 
         TwNombre = findViewById(R.id.idUsuarioMostrado)
         TwNombre.text = nombreUsuario
@@ -51,31 +57,43 @@ class Opciones_Generales : AppCompatActivity() {
 
         btnPeliculas = findViewById(R.id.btnListaPeliculas)
 
+        btnPelisCompradas = findViewById(R.id.btnPelisCompradas)
+
 
         /*btnLista.setOnClickListener {
         val intent = Intent(this, ListadoCompraVentaActivity::class.java)
         startActivity(intent)
-        finish()
+        //finish()
         */
 
 
 
 
-
         btnCerrar.setOnClickListener {
-            val preferencias = getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
-            preferencias.edit().putString(getString(R.string.nombre), "").apply()
+            getSharedPreferences(getString(R.string.sp_credenciales), MODE_PRIVATE)
+                .edit().putString(getString(R.string.nombre), "").apply()
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            val i = Intent(this, MainActivity::class.java)
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) // ✅
+            startActivity(i)
         }
 
         btnPeliculas.setOnClickListener {
-            val intent = Intent(this, MovieCatalog::class.java)
-            startActivity(intent)
-            finish()
-            }
+            startActivity(
+                Intent(this, MovieCatalog::class.java)
+                    .putExtra("userId", userId)
+                    .putExtra("nombreIniciado", nombreUsuario)
+            )
+        }
+
+
+        btnPelisCompradas.setOnClickListener {
+            startActivity(
+                Intent(this, ComprasActivity::class.java)
+                    .putExtra("userId", userId)
+                    .putExtra("nombreIniciado", nombreUsuario)
+            )
+        }
 
 
 

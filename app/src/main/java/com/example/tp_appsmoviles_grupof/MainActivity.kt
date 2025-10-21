@@ -10,15 +10,14 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Button
 import androidx.core.app.NotificationCompat
@@ -28,11 +27,12 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.tp_appsmoviles_grupof.RoomApp
+import com.example.tp_appsmoviles_grupof.database.local.RoomApp
+import com.example.tp_appsmoviles_grupof.database.local.entities.userEntity
+
 
 class MainActivity : AppCompatActivity() {
-    lateinit var cbRecordarUsuario: CheckBox //defino afuera del onCreate porque tiraba error la funcion login()
-
+    lateinit var cbRecordarUsuario: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -59,21 +59,18 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        RoomApp.init(this)
 
         /// nombre a la toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Login"
 
-
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
 
         val etUser = findViewById<EditText>(R.id.etUser)
         val etPass = findViewById<EditText>(R.id.etPass)
@@ -94,11 +91,7 @@ class MainActivity : AppCompatActivity() {
             cbRecordarUsuario.isChecked = true
         }
 
-        val nombre = obtenerNombreDesdeIntent()
-        if (nombre != null) {
-            etUser.setText(nombre) // despues de volver del registrar, guarda el nombre previamente escrito
-        }
-
+        obtenerNombreDesdeIntent()?.let { etUser.setText(it) }
 
         btnIniciar.setOnClickListener {
             val nombre = etUser.text.toString().trim()
@@ -109,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val dao = RoomApp.database.userDao()
                 val usuario = dao.buscarPorNombre(nombre)
 
@@ -147,11 +140,8 @@ class MainActivity : AppCompatActivity() {
                                 preferencias.edit().remove("nombre_usuario").apply() // si no esta marcado, o lo saco, tengo que borrar
                             }
 
-
-                            // 🔹 Esperar un poquito antes de cambiar de pantalla, sino a veces no muestra notificacion
-                            etUser.postDelayed({
-                                iniciarActividadPrincipal(usuario.nombre)
-                            }, 500) // cuando creas un dispositivo virtual nuevo, me los pide justo despues de iniciar sesion, y no antes de iniciar la aplicacion; si es así, le doy mas tiempo antes de que cambie de vista.
+                            Toast.makeText(this@MainActivity, "Bienvenido ${usuario.nombre}", Toast.LENGTH_SHORT).show()
+                            irAMenu(usuario)
                         }
 
 
@@ -160,47 +150,35 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         btnRegistrar.setOnClickListener {
-
             val intent = Intent(this, Registro::class.java)
             intent.putExtra("NOMBRE", etUser.text.toString())
             startActivity(intent)
 
-
         }
-
 
         cbMostrar.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            } else {
-                etPass.inputType =
-                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
+            etPass.inputType = if (isChecked)
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            else
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             etPass.setSelection(etPass.text.length)
         }
-
-
     }
 
 
-
-    private fun obtenerNombreDesdeIntent(): String? {
-
-        val nombreRegistro = intent.getStringExtra("NombreRegistrado")
-
-        val nombreLogin = intent.getStringExtra("NOMBRE")
-
-        return nombreRegistro ?: nombreLogin
-    }
-
-
-    private fun iniciarActividadPrincipal(nombreUsuario: String) {
-        val intent = Intent(this, Opciones_Generales::class.java)
-        intent.putExtra("nombreIniciado", nombreUsuario)
+    private fun irAMenu(usuario: userEntity) {
+        val intent = Intent(this@MainActivity, Opciones_Generales::class.java)
+        intent.putExtra("nombreIniciado", usuario.nombre)
+        intent.putExtra("userId", usuario.idUser.toLong())
         startActivity(intent)
         finish()
+    }
+
+    private fun obtenerNombreDesdeIntent(): String? {
+        val nombreRegistro = intent.getStringExtra("NombreRegistrado")
+        val nombreLogin = intent.getStringExtra("NOMBRE")
+        return nombreRegistro ?: nombreLogin
     }
 
 
@@ -279,8 +257,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-
 
 
 

@@ -42,6 +42,7 @@ android {
 val room_version = "2.8.0"
 
 dependencies {
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
     // --- ROOM (Base de datos local) ---
     implementation("androidx.room:room-runtime:$room_version")
