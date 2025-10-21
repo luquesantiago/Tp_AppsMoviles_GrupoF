@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/buyButton"
-        android:text="Comprar"
+        android:text="Guardar"
         android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
