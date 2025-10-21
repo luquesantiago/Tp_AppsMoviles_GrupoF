@@ -12,9 +12,12 @@ import Movie
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
 import com.example.tp_appsmoviles_grupof.R
 import com.example.tp_appsmoviles_grupof.viewmodel.Opciones_Generales
+import com.example.tp_appsmoviles_grupof.viewmodel.PrimerFragment
 
 class MovieCatalog : AppCompatActivity() {
 
@@ -30,10 +33,27 @@ class MovieCatalog : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        adapter = MovieAdapter(   movies = emptyList(),onBuyClick = { movie ->
-            Toast.makeText(this, "Compraste: ${movie.title}", Toast.LENGTH_SHORT).show()
-            // Acá podrías guardar en Room si querés simular compra
-        })
+        adapter = MovieAdapter(
+            movies = emptyList(),
+            onBuyClick = { movie ->
+                val fragment = PrimerFragment()
+
+                val args = Bundle()
+                args.putString("titulo", movie.title)
+                args.putInt("movieId", movie.id)
+                fragment.arguments = args
+
+                val container = findViewById<View>(R.id.fragmentContainer)
+                container.visibility = View.VISIBLE
+
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        )
+
+
 
         binding.recyclerMovies.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerMovies.adapter = adapter

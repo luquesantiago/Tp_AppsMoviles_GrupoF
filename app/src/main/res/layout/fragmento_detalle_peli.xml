@@ -2,6 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grisClaro"
+    android:gravity="center_horizontal"
 
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDetalleTitulo"
+        android:text="Título de la película"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDetalleDescripcion"
+        android:text="Descripción de la película..."
+        android:textSize="16sp"
+        android:textColor="#333"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDetalleFecha"
+        android:text="Fecha de estreno: -"
+        android:textSize="14sp"
+        android:textColor="#555"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnConfirmarCompra"
+        android:text="Confirmar compra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/azulPrimario"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btnCerrar"
+        android:text="Cancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
 </LinearLayout>
+
+
