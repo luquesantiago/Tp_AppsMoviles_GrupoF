@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 
 import com.example.tp_appsmoviles_grupof.R
+import com.example.tp_appsmoviles_grupof.BuildConfig
 import com.example.tp_appsmoviles_grupof.data.MovieRepository
 import com.example.tp_appsmoviles_grupof.database.local.RoomApp
 
@@ -30,7 +31,8 @@ class MovieCatalog : AppCompatActivity() {
     private lateinit var repo: MovieRepository
     private var currentUserId: Long = 0L
     private var canBuy = false
-    private val API_KEY = "a900d45013d2d7ea128b1e1d2bb0dc94"
+    // La key se define en local.properties (TMDB_API_KEY) y llega vía BuildConfig
+    private val API_KEY = BuildConfig.TMDB_API_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -23,7 +23,7 @@ Patrón **MVVM** con Repository:
 ## Configuración
 
 1. Cloná el repo y abrilo en Android Studio
-2. Conseguí una API key gratuita de [TMDB](https://www.themoviedb.org/settings/api) y reemplazala en `MovieCatalog.kt` (`API_KEY`)
+2. Conseguí una API key gratuita de [TMDB](https://www.themoviedb.org/settings/api) y agregala en tu `local.properties`: `TMDB_API_KEY=tu_key_aca`
 3. Sync de Gradle y ejecutar
 
 ## Integrantes
